@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stock Price Tracker</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-control {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: #fff;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #3e8e41;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Stock Price Tracker</h1>
+        <form action="/add_stocks" method="post" class="form-group">
+            <label for="symbols">Enter Stock Symbols (comma separated):</label>
+            <input type="text" id="symbols" name="symbols" class="form-control">
+            <input type="submit" value="Add" class="btn btn-primary">
+        </form>
+        <form action="/delete_stocks" method="post" class="form-group">
+            <label for="symbols">Enter Stock Symbols (comma separated):</label>
+            <input type="text" id="symbols" name="symbols" class="form-control">
+            <input type="submit" value="Delete" class="btn btn-danger">
+        </form>
+        <h2 class="text-center">Now Tracking:</h2>
+        <form action="/chart" method="post" class="form-group">
+            {% for stock in stocks %}
+                <input type="radio" name="symbol" value="{{ stock.info['symbol'] }}"> {{ stock.info['symbol'] }}<br>
+            {% endfor %}
+            <h2 class="text-center">Performance Chart Durations:</h2>
+            <label for="5d">5 days</label>
+            <input type="radio" id="5d" name="duration" value="5d"><br>
+            <label for="1mo">1 month</label>
+            <input type="radio" id="1mo" name="duration" value="1mo"><br>
+            <label for="3mo">3 months</label>
+            <input type="radio" id="3mo" name="duration" value="3mo"><br>
+            <label for="6mo">6 months</label>
+            <input type="radio" id="6mo" name="duration" value="6mo"><br>
+            <input type="submit" value="Generate Chart" class="btn btn-primary">
+        </form>
+        <ul>
+        {% for stock in stocks %}
+            <li><a href="{{ url_for('stock_info', symbol=stock.info['symbol']) }}">{{ stock.info['symbol'] }}</a></li>
+        {% endfor %}
+        </ul>
+        <a href="{{ url_for('rank_stocks') }}" class="btn btn-secondary">Rank Stocks</a>
+        <a href="{{ url_for('top_performing_stock') }}" class="btn btn-secondary">Top Performing Stock</a>
+    </div>
+</body>
+</html>

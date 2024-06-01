@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stock Info</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Stock Info</h1>
+    <p>Current Price: {{ info['currentPrice'] }}</p>
+    <p>Current Bid Price: {{ info['bid'] }}</p>
+    <p>Current Ask Price: {{ info['ask'] }}</p>
+    <p>Today's High: {{ info['dayHigh'] }}</p>
+    <p>Today's Low: {{ info['dayLow'] }}</p>
+    <p>Volume: {{ info['volume'] }}</p>
+    <a href="{{ url_for('chart', symbol=info['symbol']) }}">See Performance Chart</a>
+</body>
+</html>

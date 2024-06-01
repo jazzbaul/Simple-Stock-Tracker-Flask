@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chart</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Chart</h1>
+    <img src="data:image/png;base64,{{ plot_url }}" style="width: 800px; height: 600px;">
+</body>
+</html>
